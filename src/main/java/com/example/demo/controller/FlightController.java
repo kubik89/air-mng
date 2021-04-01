@@ -33,6 +33,11 @@ public class FlightController {
         return iFlightService.getAllFlightsByStatus(flightStatus, companyName);
     }
 
+    @GetMapping ("/activeFlights24hAgo")
+    public List<Flight> getActiveFlightsStarted24hAgo () {
+        return iFlightService.getActiveFlightsStarted24hAgo();
+    }
+
     @PostMapping
     public Flight addFlight(@RequestBody FlightCreateDto flight) {
         return iFlightService.addFlight(flight);

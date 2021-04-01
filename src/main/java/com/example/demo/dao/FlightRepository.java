@@ -10,4 +10,8 @@ import java.util.List;
 public interface FlightRepository extends JpaRepository<Flight, Integer> {
     @Query("select fl from Flight fl where fl.flight_status = :status and fl.airCompany.name like :companyName")
     List<Flight> findFlightByStatus(FlightStatus status, String companyName);
+
+    @Query("select flight from Flight flight where flight.flight_status = 0 and " +
+            "current_time - flight.started_at < 24")
+    List<Flight> getActiveFlightsStarted24hAgo();
 }

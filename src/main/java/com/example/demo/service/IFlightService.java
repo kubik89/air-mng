@@ -14,4 +14,5 @@ public interface IFlightService {
     Flight addFlight(FlightCreateDto flight);
 
     Flight addNewFlightWithStatusPending(FlightNoStatusCreateDro flight);
+    List<Flight> getActiveFlightsStarted24hAgo ();
 }

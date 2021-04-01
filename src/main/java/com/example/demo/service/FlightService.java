@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -69,11 +70,16 @@ public class FlightService implements IFlightService {
         newFlight.setDep_country(flight.getDep_country());
         newFlight.setDest_country(flight.getDest_country());
         newFlight.setDistance(flight.getDistance());
+        newFlight.setStarted_at(flight.getStarted_at());
         newFlight.setEst_flight_time(flight.getEst_flight_time());
         newFlight.setEnded_at(flight.getEnded_at());
         newFlight.setDelay_started_at(flight.getDelay_started_at());
         newFlight.setCreated_at(flight.getCreated_at());
         return flightRepository.saveAndFlush(newFlight);
+    }
+
+    public List<Flight> getActiveFlightsStarted24hAgo () {
+        return flightRepository.getActiveFlightsStarted24hAgo();
     }
 
     private Flight createFlight(FlightCreateDto flight) {
@@ -105,6 +111,7 @@ public class FlightService implements IFlightService {
         newFlight.setDep_country(flight.getDep_country());
         newFlight.setDest_country(flight.getDest_country());
         newFlight.setDistance(flight.getDistance());
+        newFlight.setStarted_at(flight.getStarted_at());
         newFlight.setEst_flight_time(flight.getEst_flight_time());
         newFlight.setEnded_at(flight.getEnded_at());
         newFlight.setDelay_started_at(flight.getDelay_started_at());

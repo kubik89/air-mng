@@ -1,13 +1,17 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.AirCompanyController;
 import com.example.demo.dao.AirCompanyRepository;
 import com.example.demo.dao.AirPlaneRepository;
 import com.example.demo.dao.BadRequestException;
 import com.example.demo.dao.FlightRepository;
 import com.example.demo.dto.FlightCreateDto;
 import com.example.demo.dto.FlightNoStatusCreateDro;
+import com.example.demo.dto.FlightStatusTimeDto;
 import com.example.demo.entity.Flight;
 import com.example.demo.entity.FlightStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,8 @@ public class FlightService implements IFlightService {
     FlightRepository flightRepository;
     AirCompanyRepository airCompanyRepository;
     AirPlaneRepository airPlaneRepository;
+
+    private static Logger logger = LoggerFactory.getLogger(AirCompanyController.class);
 
     @Autowired
     public FlightService(FlightRepository flightRepository,
@@ -55,17 +61,21 @@ public class FlightService implements IFlightService {
 
         newFlight.setFlight_status(FlightStatus.PENDING);
 
-        airCompanyRepository.findAll().forEach(company -> {
-            if (company.getId() == flight.getAirCompanyId()) {
-                newFlight.setAirCompany(company);
-            }
-        });
+        Flight flight1 = setCompanyForFlight(flight.getAirCompanyId());
+        newFlight.setAirCompany(flight1.getAirCompany());
+//        airCompanyRepository.findAll().forEach(company -> {
+//            if (company.getId() == flight.getAirCompanyId()) {
+//                newFlight.setAirCompany(company);
+//            }
+//        });
 
-        airPlaneRepository.findAll().forEach(airPlane -> {
-            if (airPlane.getId() == flight.getAirplaneId()) {
-                newFlight.setAirplane(airPlane);
-            }
-        });
+        Flight flight2 = setAirplane(flight.getAirplaneId());
+        newFlight.setAirplane(flight2.getAirplane());
+//        airPlaneRepository.findAll().forEach(airPlane -> {
+//            if (airPlane.getId() == flight.getAirplaneId()) {
+//                newFlight.setAirplane(airPlane);
+//            }
+//        });
 
         newFlight.setDep_country(flight.getDep_country());
         newFlight.setDest_country(flight.getDest_country());
@@ -78,8 +88,62 @@ public class FlightService implements IFlightService {
         return flightRepository.saveAndFlush(newFlight);
     }
 
-    public List<Flight> getActiveFlightsStarted24hAgo () {
+    public List<Flight> getActiveFlightsStarted24hAgo() {
         return flightRepository.getActiveFlightsStarted24hAgo();
+    }
+
+    @Override
+    public void setStatus(FlightStatusTimeDto status) {
+
+        int newStatus = -1;
+        for (int i = 0; i < FlightStatus.values().length; i++) {
+            if (FlightStatus.values()[i].ordinal() == status.getFlightStatus()) {
+                newStatus = FlightStatus.values()[i].ordinal();
+                if (flightRepository.existsById(status.getFlightId())) {
+                    if (status.getFlightStatus() == 0) {
+                        Flight flight = flightRepository.findById(status.getFlightId()).get();
+                        flight.setFlight_status(FlightStatus.values()[i]);
+                        flight.setDelay_started_at(status.getTime());
+                        flightRepository.saveAndFlush(flight);
+                    } else if (status.getFlightStatus() == 1) {
+                        Flight flight = flightRepository.findById(status.getFlightId()).get();
+                        flight.setFlight_status(FlightStatus.values()[i]);
+                        flight.setEnded_at(status.getTime());
+                        flightRepository.saveAndFlush(flight);
+                    } else if (status.getFlightStatus() == 2) {
+                        Flight flight = flightRepository.findById(status.getFlightId()).get();
+                        flight.setFlight_status(FlightStatus.values()[i]);
+                        flight.setDelay_started_at(status.getTime());
+                        flightRepository.saveAndFlush(flight);
+                    } else {
+                        logger.error("Current flight status is not supported for current method");
+                    }
+                } else throw new IllegalArgumentException("Flight not found");
+            }
+        }
+        if (newStatus == -1) {
+            throw new BadRequestException("not correct flight STATUS");
+        }
+    }
+
+    private Flight setCompanyForFlight(int airCompanyId) {
+        Flight newFlight = new Flight();
+        airCompanyRepository.findAll().forEach(company -> {
+            if (company.getId() == airCompanyId) {
+                newFlight.setAirCompany(company);
+            }
+        });
+        return newFlight;
+    }
+
+    private Flight setAirplane(int airplaneId) {
+        Flight newFlight = new Flight();
+        airPlaneRepository.findAll().forEach(airPlane -> {
+            if (airPlane.getId() == airplaneId) {
+                newFlight.setAirplane(airPlane);
+            }
+        });
+        return newFlight;
     }
 
     private Flight createFlight(FlightCreateDto flight) {
@@ -96,17 +160,19 @@ public class FlightService implements IFlightService {
             throw new BadRequestException("not correct flight STATUS");
         }
 
-        airCompanyRepository.findAll().forEach(company -> {
-            if (company.getId() == flight.getAirCompanyId()) {
-                newFlight.setAirCompany(company);
-            }
-        });
+        setCompanyForFlight(flight.getAirCompanyId());
+//        airCompanyRepository.findAll().forEach(company -> {
+//            if (company.getId() == flight.getAirCompanyId()) {
+//                newFlight.setAirCompany(company);
+//            }
+//        });
 
-        airPlaneRepository.findAll().forEach(airPlane -> {
-            if (airPlane.getId() == flight.getAirplaneId()) {
-                newFlight.setAirplane(airPlane);
-            }
-        });
+        setAirplane(flight.getAirplaneId());
+//        airPlaneRepository.findAll().forEach(airPlane -> {
+//            if (airPlane.getId() == flight.getAirplaneId()) {
+//                newFlight.setAirplane(airPlane);
+//            }
+//        });
 
         newFlight.setDep_country(flight.getDep_country());
         newFlight.setDest_country(flight.getDest_country());

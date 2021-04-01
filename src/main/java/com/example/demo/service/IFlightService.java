@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.FlightCreateDto;
 import com.example.demo.dto.FlightNoStatusCreateDro;
+import com.example.demo.dto.FlightStatusTimeDto;
 import com.example.demo.entity.Flight;
 import com.example.demo.entity.FlightStatus;
 
@@ -15,4 +16,5 @@ public interface IFlightService {
 
     Flight addNewFlightWithStatusPending(FlightNoStatusCreateDro flight);
     List<Flight> getActiveFlightsStarted24hAgo ();
+    void setStatus (FlightStatusTimeDto status);
 }

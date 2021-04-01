@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.FlightCreateDto;
 import com.example.demo.dto.FlightNoStatusCreateDro;
+import com.example.demo.dto.FlightStatusTimeDto;
 import com.example.demo.entity.Flight;
 import com.example.demo.entity.FlightStatus;
 import com.example.demo.service.IFlightService;
@@ -28,13 +29,13 @@ public class FlightController {
         return iFlightService.getAllFlights();
     }
 
-    @GetMapping ("/{flightStatus}/{companyName}")
+    @GetMapping("/{flightStatus}/{companyName}")
     public List<Flight> getFlightsByStatus(@PathVariable FlightStatus flightStatus, @PathVariable String companyName) {
         return iFlightService.getAllFlightsByStatus(flightStatus, companyName);
     }
 
-    @GetMapping ("/activeFlights24hAgo")
-    public List<Flight> getActiveFlightsStarted24hAgo () {
+    @GetMapping("/activeFlights24hAgo")
+    public List<Flight> getActiveFlightsStarted24hAgo() {
         return iFlightService.getActiveFlightsStarted24hAgo();
     }
 
@@ -44,7 +45,12 @@ public class FlightController {
     }
 
     @PostMapping("/addNewFlightPending")
-    public Flight addNewFlightWithStatusPending (@RequestBody FlightNoStatusCreateDro flight) {
+    public Flight addNewFlightWithStatusPending(@RequestBody FlightNoStatusCreateDro flight) {
         return iFlightService.addNewFlightWithStatusPending(flight);
+    }
+
+    @PostMapping("/setStatus")
+    public void setFlightStatus(@RequestBody FlightStatusTimeDto status) {
+        iFlightService.setStatus(status);
     }
 }

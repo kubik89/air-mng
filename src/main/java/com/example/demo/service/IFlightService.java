@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.FlightCreateDto;
+import com.example.demo.dto.FlightNoStatusCreateDro;
 import com.example.demo.entity.Flight;
 import com.example.demo.entity.FlightStatus;
 
@@ -12,5 +13,5 @@ public interface IFlightService {
     List<Flight> getAllFlightsByStatus(FlightStatus flightStatus, String companyName);
     Flight addFlight(FlightCreateDto flight);
 
-    Flight addNewFlightWithStatusPending(FlightCreateDto flight);
+    Flight addNewFlightWithStatusPending(FlightNoStatusCreateDro flight);
 }

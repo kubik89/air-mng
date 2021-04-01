@@ -5,6 +5,7 @@ import com.example.demo.dao.AirPlaneRepository;
 import com.example.demo.dao.BadRequestException;
 import com.example.demo.dao.FlightRepository;
 import com.example.demo.dto.FlightCreateDto;
+import com.example.demo.dto.FlightNoStatusCreateDro;
 import com.example.demo.entity.Flight;
 import com.example.demo.entity.FlightStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,32 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public Flight addNewFlightWithStatusPending(FlightCreateDto flight) {
-        return addFlight(flight);
+    public Flight addNewFlightWithStatusPending(FlightNoStatusCreateDro flight) {
+
+        Flight newFlight = new Flight();
+
+        newFlight.setFlight_status(FlightStatus.PENDING);
+
+        airCompanyRepository.findAll().forEach(company -> {
+            if (company.getId() == flight.getAirCompanyId()) {
+                newFlight.setAirCompany(company);
+            }
+        });
+
+        airPlaneRepository.findAll().forEach(airPlane -> {
+            if (airPlane.getId() == flight.getAirplaneId()) {
+                newFlight.setAirplane(airPlane);
+            }
+        });
+
+        newFlight.setDep_country(flight.getDep_country());
+        newFlight.setDest_country(flight.getDest_country());
+        newFlight.setDistance(flight.getDistance());
+        newFlight.setEst_flight_time(flight.getEst_flight_time());
+        newFlight.setEnded_at(flight.getEnded_at());
+        newFlight.setDelay_started_at(flight.getDelay_started_at());
+        newFlight.setCreated_at(flight.getCreated_at());
+        return flightRepository.saveAndFlush(newFlight);
     }
 
     private Flight createFlight(FlightCreateDto flight) {

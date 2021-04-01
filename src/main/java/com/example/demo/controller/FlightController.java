@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.FlightCreateDto;
+import com.example.demo.dto.FlightNoStatusCreateDro;
 import com.example.demo.entity.Flight;
 import com.example.demo.entity.FlightStatus;
 import com.example.demo.service.IFlightService;
@@ -38,7 +39,7 @@ public class FlightController {
     }
 
     @PostMapping("/addNewFlightPending")
-    public Flight addNewFlightWithStatusPending (@RequestBody FlightCreateDto flight) {
+    public Flight addNewFlightWithStatusPending (@RequestBody FlightNoStatusCreateDro flight) {
         return iFlightService.addNewFlightWithStatusPending(flight);
     }
 }

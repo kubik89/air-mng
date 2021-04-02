@@ -28,7 +28,7 @@ public class Flight {
     private String dest_country;
     private int distance;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "HH:mm")
     private String est_flight_time;
 
     @DateTimeFormat(pattern = "HH:mm:ss")

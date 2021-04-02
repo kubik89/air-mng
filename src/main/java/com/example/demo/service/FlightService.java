@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class FlightService implements IFlightService {
@@ -124,6 +124,26 @@ public class FlightService implements IFlightService {
         if (newStatus == -1) {
             throw new BadRequestException("not correct flight STATUS");
         }
+    }
+
+    @Override
+    public List<Flight> getCompFlightsWithDiffTime() {
+        List<Flight> complFlights = flightRepository.getComplFlightsWithDiffInTime();
+        List<Flight> flightList = new ArrayList<>();
+        complFlights.forEach(flight -> {
+            try {
+                Date dateEnd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(flight.getEnded_at());
+                Date dateStart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(flight.getStarted_at());
+                Date timeEst = new SimpleDateFormat("HH:mm").parse(flight.getEst_flight_time());
+                if ((dateEnd.getTime() - dateStart.getTime()) > timeEst.getTime()) {
+                    System.out.println("Час " + ((dateEnd.getTime() - dateStart.getTime()) - timeEst.getTime()));
+                    flightList.add(flight);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+        return flightList;
     }
 
     private Flight setCompanyForFlight(int airCompanyId) {

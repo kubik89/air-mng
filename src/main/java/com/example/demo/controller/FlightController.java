@@ -39,6 +39,12 @@ public class FlightController {
         return iFlightService.getActiveFlightsStarted24hAgo();
     }
 
+    @GetMapping("/compFlDiffTime")
+    public List<Flight> getCompletedFlightsWithDiffInTime() {
+        return iFlightService.getCompFlightsWithDiffTime();
+    }
+
+
     @PostMapping
     public Flight addFlight(@RequestBody FlightCreateDto flight) {
         return iFlightService.addFlight(flight);

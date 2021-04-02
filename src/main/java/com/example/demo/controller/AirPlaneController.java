@@ -46,9 +46,4 @@ public class AirPlaneController {
         return airPlaneService.moveToAnotherCompany(airplaneMigrateDto);
     }
 
-//    @InitBinder
-//    public void myInitBinder(WebDataBinder webDataBinder) {
-//        webDataBinder.addValidators(new AirplaneMigrateValidator());
-//    }
-
 }

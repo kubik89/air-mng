@@ -103,7 +103,7 @@ public class FlightService implements IFlightService {
                     if (status.getFlightStatus() == 0) {
                         Flight flight = flightRepository.findById(status.getFlightId()).get();
                         flight.setFlight_status(FlightStatus.values()[i]);
-                        flight.setDelay_started_at(status.getTime());
+                        flight.setStarted_at(status.getTime());
                         flightRepository.saveAndFlush(flight);
                     } else if (status.getFlightStatus() == 1) {
                         Flight flight = flightRepository.findById(status.getFlightId()).get();

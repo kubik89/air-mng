@@ -46,15 +46,4 @@ public class AirCompanyController {
         iAirCompanyService.deleteCompanyById(id);
         logger.info("AirCompany with id " + id + " - deleted successfully");
     }
-
-    @InitBinder
-    public void myInitBinder(WebDataBinder webDataBinder1, WebDataBinder webDataBinder2) {
-        webDataBinder1.addValidators(new AirCompanyValidator());
-        webDataBinder2.addValidators(new AirCompanyValidator2());
-    }
-
-//    @InitBinder
-//    public void myInitBinder(WebDataBinder webDataBinder2) {
-//        webDataBinder2.addValidators(new AirCompanyValidator());
-//    }
 }

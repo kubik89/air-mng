@@ -1,0 +1,535 @@
+{
+	"info": {
+		"_postman_id": "e5ef2e00-d56b-4355-aec8-4e1c5bbce44b",
+		"name": "air-mng",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1-Put",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"Wind Rose\",\r\n   \"company_type\": \"Avia\",\r\n   \"founded_at\": \"2012-10-01\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/company/17",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"company",
+						"17"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1-Reade",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"Wind Rose\",\r\n   \"company_type\": \"Avia\",\r\n   \"founded_at\": \"2012-10-01\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/company",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"company"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1-Create",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"Air Italy\",\r\n   \"company_type\": \"Avia\",\r\n   \"founded_at\": \"2006-01-10\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/company",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"company"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "1) Simple CRUD operations for Air company entity"
+			},
+			"response": []
+		},
+		{
+			"name": "1-Delete",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"Air Italy\",\r\n   \"company_type\": \"Avia\",\r\n   \"founded_at\": \"2006-01-10\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/company/18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"company",
+						"18"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "1) Simple CRUD (Delete) operations for Air company entity"
+			},
+			"response": []
+		},
+		{
+			"name": "2-move airplanes between companies",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"airplaneId\": \"6\",\r\n   \"airCompanyName\": \"MAU\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/airplane/migrate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airplane",
+						"migrate"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "2) Endpoint to move airplanes between companies (simple endpoint to reassign airplane to\r\nanother company)."
+			},
+			"response": []
+		},
+		{
+			"name": "3-find all Air Company Flights by status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"airplaneId\": \"6\",\r\n   \"airCompanyName\": \"MAU\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/flight/ACTIVE/Lufthansa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flight",
+						"ACTIVE",
+						"Lufthansa"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "3) Endpoint to find all Air Company Flights by status (use company name for identification\r\nof Air Company)."
+			},
+			"response": []
+		},
+		{
+			"name": "4-all Flights in ACTIVE started < 24H",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"airCompanyId\": 3,\r\n   \"airplaneId\": 5,\r\n   \"dep_country\": \"PL\",\r\n   \"dest_country\": \"UA\",\r\n   \"distance\": 600\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/flight/activeFlights24hAgo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flight",
+						"activeFlights24hAgo"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "4) Endpoint to find all Flights in ACTIVE status and started more than 24 hours ago."
+			},
+			"response": []
+		},
+		{
+			"name": "5-add new Airplane",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Airplane1\",\r\n    \"f_s_number\": \"zzz123\",\r\n   \"airCompanyId\": 3,\r\n   \"flight_number\": 778,\r\n   \"flight_distance\": 1100,\r\n   \"fuel_capacity\": 500.7,\r\n   \"type\": \"Boeing 737-800\",\r\n   \"created_at\": \"2000-08-04\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/airplane",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"airplane"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "5) Endpoint to add new Airplane"
+			},
+			"response": []
+		},
+		{
+			"name": "6-add new Flight - Pending",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"airCompanyId\": 3,\r\n   \"airplaneId\": 5,\r\n   \"dep_country\": \"PL\",\r\n   \"dest_country\": \"UA\",\r\n   \"distance\": 600\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/flight/addNewFlightPending",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flight",
+						"addNewFlightPending"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "6) Endpoint to add new Flight (set status to PENDING)"
+			},
+			"response": []
+		},
+		{
+			"name": "7 - DELAYED",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightStatus\": 2,\r\n    \"flightId\": 43,\r\n    \"time\": \"2000-08-04 05:55\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/flight/setStatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flight",
+						"setStatus"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "7) Endpoint to change Flight status:\r\nif status to change is DELAYED – set delay started at"
+			},
+			"response": []
+		},
+		{
+			"name": "7 - ACTIVE",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightStatus\": 0,\r\n    \"flightId\": 44,\r\n    \"time\": \"2000-08-04 05:55\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/flight/setStatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flight",
+						"setStatus"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7 - COMPLETED",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightStatus\": 1,\r\n    \"flightId\": 45,\r\n    \"time\": \"2000-08-04 05:55\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/flight/setStatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flight",
+						"setStatus"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8 -  all Flights COMPLETED and difference in time",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightStatus\": 1,\r\n    \"flightId\": 45,\r\n    \"time\": \"2000-08-04 05:55\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/flight/compFlDiffTime",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"flight",
+						"compFlDiffTime"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "8) (Optional) Endpoint to find all Flights in COMPLETED status and difference between\r\nstarted and ended time is bigger than estimated flight time."
+			},
+			"response": []
+		}
+	]
+}

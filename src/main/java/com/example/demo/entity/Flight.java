@@ -31,7 +31,7 @@ public class Flight {
     @DateTimeFormat(pattern = "HH:mm")
     private String est_flight_time;
 
-    @DateTimeFormat(pattern = "HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String started_at;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -40,6 +40,6 @@ public class Flight {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String delay_started_at;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String created_at;
 }

@@ -13,5 +13,5 @@ public interface IAirCompanyService {
 
     void deleteCompanyById(int id);
 
-    AirCompany updateAirCompany(AirCompany airCompany);
+    AirCompany updateAirCompany(int id, AirCompany airCompany);
 }

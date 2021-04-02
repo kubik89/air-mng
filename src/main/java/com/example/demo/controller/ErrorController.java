@@ -15,15 +15,12 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ErrorController {
 
-    // вказую, щоб оброблялась помилка MethodArgumentNotValidException і повертала лише певні поля
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponceErrorDTO handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         String message = parceValidationException(ex);
         return new ResponceErrorDTO(LocalDateTime.now(), message, HttpStatus.BAD_REQUEST.value());
     }
 
-    // цей метод який поверне помилку у такому вигляді як я хочу (в даному випадку це дефолтне повідомлення)
-// результат прокидається вище.
     private String parceValidationException(MethodArgumentNotValidException ex) {
         List<String> collect = ex.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
         return collect.toString();

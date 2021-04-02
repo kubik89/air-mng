@@ -4,6 +4,7 @@ import com.example.demo.dto.AirCompanyCreateDto;
 import com.example.demo.entity.AirCompany;
 import com.example.demo.service.IAirCompanyService;
 import com.example.demo.validator.AirCompanyValidator;
+import com.example.demo.validator.AirCompanyValidator2;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,21 +25,20 @@ public class AirCompanyController {
 
     private static Logger logger = LoggerFactory.getLogger(AirCompanyController.class);
 
-
     @GetMapping
     public List<AirCompany> getAllCompanies () {
         return iAirCompanyService.getAllAirCompanies();
     }
 
     @PostMapping
-    public AirCompany createAirCompany (@RequestBody @Valid AirCompanyCreateDto airCompanyCreateDto) {
+    public AirCompany createAirCompany (@RequestBody AirCompanyCreateDto airCompanyCreateDto) {
         logger.info("AirCompany with name " + airCompanyCreateDto.getName() + " - created successfully");
         return iAirCompanyService.createAirCompany(airCompanyCreateDto);
     }
 
-    @PutMapping
-    public AirCompany updateAirCompany (@RequestBody AirCompany airCompany) {
-        return iAirCompanyService.updateAirCompany(airCompany);
+    @PutMapping ("/{id}")
+    public AirCompany updateAirCompany (@PathVariable int id, @RequestBody AirCompany airCompany) {
+        return iAirCompanyService.updateAirCompany(id, airCompany);
     }
 
     @DeleteMapping ("/{id}")
@@ -47,9 +47,14 @@ public class AirCompanyController {
         logger.info("AirCompany with id " + id + " - deleted successfully");
     }
 
-
     @InitBinder
-    public void myInitBinder(WebDataBinder webDataBinder) {
-        webDataBinder.addValidators(new AirCompanyValidator());
+    public void myInitBinder(WebDataBinder webDataBinder1, WebDataBinder webDataBinder2) {
+        webDataBinder1.addValidators(new AirCompanyValidator());
+        webDataBinder2.addValidators(new AirCompanyValidator2());
     }
+
+//    @InitBinder
+//    public void myInitBinder(WebDataBinder webDataBinder2) {
+//        webDataBinder2.addValidators(new AirCompanyValidator());
+//    }
 }

@@ -21,9 +21,10 @@ public class AirCompany {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-//    @NotBlank(message = "Field NAME cannot be empty ")
+    @NotBlank(message = "Field NAME cannot be empty ")
     private String name;
 
+    @NotBlank(message = "Field company_type cannot be empty ")
     private String company_type;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -5,6 +5,7 @@ import com.example.demo.entity.AirCompany;
 import com.example.demo.service.IAirCompanyService;
 import com.example.demo.validator.AirCompanyValidator;
 import com.example.demo.validator.AirCompanyValidator2;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RequestMapping(value = "/company")
 @RestController
+@AllArgsConstructor
 @Slf4j
 public class AirCompanyController {
 
@@ -32,7 +34,7 @@ public class AirCompanyController {
 
     @PostMapping
     public AirCompany createAirCompany (@RequestBody AirCompanyCreateDto airCompanyCreateDto) {
-        logger.info("AirCompany with name " + airCompanyCreateDto.getName() + " - created successfully");
+//        logger.info("AirCompany with name " + airCompanyCreateDto.getName() + " - created successfully");
         return iAirCompanyService.createAirCompany(airCompanyCreateDto);
     }
 
